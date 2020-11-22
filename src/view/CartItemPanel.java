@@ -1,4 +1,4 @@
-package org.ucvts.comics.view;
+package view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
