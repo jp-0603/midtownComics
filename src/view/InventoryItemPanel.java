@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -59,7 +60,7 @@ public class InventoryItemPanel extends JPanel implements ActionListener {
         JPanel panel = new JPanel(new GridLayout(0, 1));
         
         JLabel title = new JLabel(p.getTitle() + " #" + p.getIssue());
-        JLabel author = new JLabel("Written by " + p.getAuthor() + " • Released on " + convertDate(p.getReleaseDate()));
+        JLabel author = new JLabel("Written by: " + p.getAuthor() + " / Book released on: " + convertDate(p.getReleaseDate()));
         JLabel copies = new JLabel("Available: " + (p.getCopies() == 1 ? p.getCopies() + " copy" : p.getCopies() + " copies"));
         
         title.setFont(new Font("DialogInput", Font.BOLD, 18));
@@ -151,7 +152,15 @@ public class InventoryItemPanel extends JPanel implements ActionListener {
         for (Product p : manager.getInventory()) {
             if (id.longValue() == p.getProductId() && type.equals("BUY")) {
                 if (!manager.productExistsInOrder(p)) {
-                    manager.addItemToOrder(new OrderItem(p));
+                    try {
+						manager.addItemToOrder(new OrderItem(p));
+						manager.attachProduct(p);
+						manager.refreshCart();
+						manager.switchTo(MidtownComics.CartView);
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
                 }
             } else if (id.longValue() == p.getProductId() && type.equals("EDIT")) {
                 manager.attachProduct(p);

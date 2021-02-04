@@ -1,8 +1,8 @@
 package model;
 
 public class Product {
-
-    private static long lastProductId = 1L; // initial product ID
+	
+	private static long lastProductId = 1L; // initial product ID
 
     private long productId;
     private String title;
@@ -154,4 +154,25 @@ public class Product {
     public void setCopies(int copies) {
         this.copies = copies;
     }
+    
+    public void setProductId(long id) {
+    	this.productId = id;
+    }
+    
+    public void setTitle(String title) {
+    	this.title = title;
+    }
+    
+    public void setAuthor(String author) {
+    	this.author = author;
+    }
+    
+    public void setReleaseDate(Long date) {
+    	this.releaseDate = date;
+    }
+    
+    public void setIssue(int issue) {
+    	this.issue = issue;
+    }
+
 }
